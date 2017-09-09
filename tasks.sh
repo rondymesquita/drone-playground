@@ -37,6 +37,7 @@ inspect(){
   _inspect_container "drone-server" "8000"
   _inspect_container "gogs" "3000"
   _inspect_container "postgresql" "5432"
+  _inspect_container "portainer" "9000"
 }
 
 #
@@ -46,6 +47,8 @@ _cleanup(){
   echo "*** Cleaning up old data"
   sudo rm -rf /var/drone
   sudo rm -rf /var/gogs
+
+  docker rm -f drone-server drone-agent gogs postgresql portainer
 }
 
 _init(){
