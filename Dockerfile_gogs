@@ -1,0 +1,4 @@
+FROM gogs/gogs:0.11.19
+WORKDIR /app/gogs
+RUN pwd
+RUN ./gogs admin create-user --name=gogs --password=password --email=gogs@email.com

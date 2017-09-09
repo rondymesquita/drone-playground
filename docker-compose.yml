@@ -1,0 +1,75 @@
+version: '2'
+
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  postgresql:
+    container_name: postgresql
+    image: postgres:9.6.3
+    ports:
+      - "5432:5432"
+    networks:
+      - gogs
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: gogs
+
+  gogs:
+    container_name: gogs
+    image: gogs/gogs:0.11.19
+    ports:
+      - "10022:22"
+      - "3000:3000"
+    networks:
+      - gogs
+    depends_on:
+      - postgresql
+    volumes:
+      - /var/gogs:/data
+
+  drone-server:
+    container_name: drone-server
+    image: drone/drone:0.7
+    ports:
+      - "8000:8000"
+    networks:
+      - gogs
+    depends_on:
+      - gogs
+    volumes:
+      - /var/drone:/var/lib/drone/
+    environment:
+      - DRONE_OPEN=true
+      - DRONE_HOST=http://drone-server:8000
+      - DRONE_GOGS=true
+      - DRONE_GOGS_URL=http://gogs:3000
+      - DRONE_SECRET="mysecret"
+      - DRONE_NETWORK=droneplayground_gogs
+
+  drone-agent:
+    container_name: drone-agent
+    image: drone/drone:0.7
+    command: agent
+    networks:
+      - gogs
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SECRET="mysecret"
+      - DRONE_SERVER=ws://drone-server:8000/ws/broker
+
+
+networks:
+  gogs:
+    driver: bridge
+  # default:
+  #   external:
+  #     name: networkci
