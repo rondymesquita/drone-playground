@@ -8,5 +8,4 @@ func TestSample(t *testing.T) {
     time.Sleep(20000 * time.Millisecond)
     // t.Fatal("Ooops...")
     fmt.Println("Testing Done!")
-    
 }
