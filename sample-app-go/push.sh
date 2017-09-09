@@ -4,3 +4,4 @@ git add -A
 git commit -m "$(date)"
 git remote add cicd "http://$address:3000/gogs/fulano1.git"
 git push -u cicd master
+rm -rf .git
