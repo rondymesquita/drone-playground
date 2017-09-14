@@ -45,6 +45,7 @@ services:
     volumes:
       - /var/drone:/var/lib/drone/
     environment:
+      - DRONE_ADMIN=gogs
       - DRONE_OPEN=true
       - DRONE_HOST=http://drone-server:8000
       - DRONE_GOGS=true

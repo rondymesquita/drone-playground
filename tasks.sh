@@ -15,10 +15,22 @@ help(){
 }
 
 init(){
-  echo "*** Configuring services"
-  down
-  _cleanup
+  echo "*** Initializing"
   _init
+  echo "*** All things in place!"
+}
+
+reset(){
+  echo "*** Reseting services"
+  echo "*** THIS WILL WIPE YOUR DATABASE, REMOVE ALL YOUR FILES FROM VOLUMES AND DESTROY THE CONTAINERS."
+
+  _ask_for_confirmation
+
+  OPTION=$?
+    if [ "$OPTION" = 1 ]; then
+    down    
+    _reset
+  fi
 }
 
 up(){
@@ -27,10 +39,21 @@ up(){
   docker-compose up
 }
 
-down(){
-  echo "*** Shutting down services"
-  docker-compose down
+start(){
+  echo "*** Starting services"
+  docker-compose create
+  docker-compose start
 }
+
+stop(){
+  echo "*** Stoppping services"
+  docker-compose stop
+}
+
+# down(){
+#   echo "*** Shutting down services"
+#   docker-compose down
+# }
 
 inspect(){
   echo "*** Information"
@@ -43,7 +66,7 @@ inspect(){
 #
 # Private functions
 #
-_cleanup(){
+_reset(){
   echo "*** Cleaning up old data"
   sudo rm -rf /var/drone
   sudo rm -rf /var/gogs
@@ -54,8 +77,12 @@ _cleanup(){
 _init(){
   echo "*** Initializing new data"
   sudo mkdir -p /var/drone
+  sudo mkdir -p /var/drone/reports
   sudo mkdir -p /var/gogs/gogs/conf
-  sudo cp ./app.ini /var/gogs/gogs/conf/
+
+  if [ -f /var/gogs/gogs/conf/app.ini ]; then
+    sudo cp ./app.ini /var/gogs/gogs/conf/
+  fi
 }
 
 _inspect_container(){
