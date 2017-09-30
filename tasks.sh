@@ -79,10 +79,7 @@ _init(){
   sudo mkdir -p /var/drone
   sudo mkdir -p /var/drone/reports
   sudo mkdir -p /var/gogs/gogs/conf
-
-  if [ -f /var/gogs/gogs/conf/app.ini ]; then
-    sudo cp ./app.ini /var/gogs/gogs/conf/
-  fi
+  sudo cp ./app.ini /var/gogs/gogs/conf/
 }
 
 _inspect_container(){
