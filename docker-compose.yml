@@ -1,14 +1,6 @@
 version: '2'
 
 services:
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    ports:
-      - 9000:9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   postgresql:
     container_name: postgresql
     image: postgres:9.6.3
@@ -71,6 +63,3 @@ services:
 networks:
   gogs:
     driver: bridge
-  # default:
-  #   external:
-  #     name: networkci
