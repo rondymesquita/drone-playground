@@ -2,5 +2,5 @@ address="$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{
 
 git add -A
 git commit -m "$(date)"
-git remote add cicd "http://$address:3000/gogs/sample-app-go.git"
+git remote add cicd "http://$address:3000/gogs/sample-app-java.git"
 git push -u cicd master

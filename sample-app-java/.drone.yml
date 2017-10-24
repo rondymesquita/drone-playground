@@ -13,10 +13,10 @@ pipeline:
   sampleapp:
     image: custom-image
     commands:
-      - mvn test
+      - mvn -f ./selenium-hello/pom.xml test
     volumes:
       - /var/drone/:/var/drone/
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
-      DISPLAY: $DISPLAY
+      DISPLAY: :0
       

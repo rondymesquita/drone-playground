@@ -28,7 +28,7 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckod
 RUN tar xzf ~/geckodriver.tar.gz -C ~/
 
 # VOLUME /tmp/.X11-unix:/tmp/.X11-unix
-ENV DISPLAY=:0
+# ENV DISPLAY=:0
 
 # USER root
 
