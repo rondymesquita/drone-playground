@@ -1,0 +1,21 @@
+workspace:
+  base: /go
+  path: src/sample-app-go
+
+pipeline:
+  setup:
+    image: docker
+    commands:
+      - docker build --rm -t custom-image .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  sampleapp:
+    image: custom-image
+    commands:
+      - /etc/init.d/xvfb start
+      - /etc/init.d/x11vnc start
+      - mvn -f ./selenium-hello/pom.xml test
+    volumes:
+      - /var/drone/:/var/drone/
+      

@@ -17,6 +17,4 @@ pipeline:
     volumes:
       - /var/drone/:/var/drone/
       - /tmp/.X11-unix:/tmp/.X11-unix
-    environment:
-      DISPLAY: :0
       

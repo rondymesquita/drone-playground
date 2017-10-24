@@ -24,11 +24,11 @@ RUN export uid=0 gid=0 && \
     chmod 0440 /etc/sudoers.d/developer && \
     chown ${uid}:${gid} -R /home/developer
 
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz -O ~/geckodriver.tar.gz
-RUN tar xzf ~/geckodriver.tar.gz -C ~/
+# RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz -O ~/geckodriver.tar.gz
+# RUN tar xzf ~/geckodriver.tar.gz -C ~/
 
 # VOLUME /tmp/.X11-unix:/tmp/.X11-unix
-# ENV DISPLAY=:0
+ENV DISPLAY=:0
 
 # USER root
 
