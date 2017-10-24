@@ -1,0 +1,16 @@
+pipeline:
+  setup:
+    image: docker
+    commands:
+      - docker build --rm -t custom-image .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  sampleapp:
+    image: custom-image
+    commands:
+      - mvn -f ./selenium-hello/pom.xml test
+    volumes:
+      - /var/drone/:/var/drone/
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      
