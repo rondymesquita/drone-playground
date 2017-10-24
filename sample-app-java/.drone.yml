@@ -13,11 +13,10 @@ pipeline:
   sampleapp:
     image: custom-image
     commands:
-      - go build
-      - go test -coverprofile=coverage.out
-      - go tool cover -html=coverage.out -o=coverage.html
-      - timestamp=$(date +%s)
-      - mkdir -p /var/drone/reports/$timestamp-coverage
-      - cp coverage.html /var/drone/reports/$timestamp-coverage
+      - mvn test
     volumes:
       - /var/drone/:/var/drone/
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      DISPLAY: $DISPLAY
+      
