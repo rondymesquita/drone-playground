@@ -28,7 +28,7 @@ reset(){
 
   OPTION=$?
     if [ "$OPTION" = 1 ]; then
-    down    
+    # down
     _reset
   fi
 }
@@ -50,10 +50,10 @@ stop(){
   docker-compose stop
 }
 
-# down(){
-#   echo "*** Shutting down services"
-#   docker-compose down
-# }
+down(){
+  echo "*** Shutting down services"
+  docker-compose down
+}
 
 inspect(){
   echo "*** Information"
@@ -61,6 +61,13 @@ inspect(){
   _inspect_container "gogs" "3000"
   _inspect_container "postgresql" "5432"
   _inspect_container "portainer" "9000"
+}
+
+configure(){
+  echo "*** Configuring environment"
+  xhost +
+  sudo apt install xorg
+  echo "*** "
 }
 
 #
