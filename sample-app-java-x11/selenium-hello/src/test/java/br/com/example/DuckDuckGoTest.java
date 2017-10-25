@@ -18,7 +18,9 @@ public class DuckDuckGoTest {
 
 	@Test
 	public void shouldDoASearchWithSuccess() throws Exception{
-		System.setProperty("webdriver.gecko.driver", "./res/geckodriver");
+
+		String path = new File("./res/geckodriver").getAbsolutePath();
+		System.setProperty("webdriver.gecko.driver", path);
 		driver = new FirefoxDriver();
 		 
 		driver.get(URL);
