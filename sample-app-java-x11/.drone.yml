@@ -9,7 +9,11 @@ pipeline:
   sampleapp:
     image: custom-image
     commands:
-      - mvn -f ./selenium-hello/pom.xml test
+      - cd selenium-hello
+      - mvn clean test
+      - timestamp=$(date +%s)
+      - mkdir -p /var/drone/reports/sample-java-app-x11-$timestamp
+      - cp -R ./target/screenshots/ /var/drone/reports/sample-java-app-x11-$timestamp
     volumes:
       - /var/drone/:/var/drone/
       - /tmp/.X11-unix:/tmp/.X11-unix
